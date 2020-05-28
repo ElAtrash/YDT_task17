@@ -1,21 +1,33 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
-function Book({ book, toggleRead }) {
+const Book = (book, toogleBook) => {
+  const dispatch = useDispatch();
+  const toggleBook = () => {
+    dispatch({
+      type: "TOGGLE_BOOK",
+      bookData: {
+        id: book.id,
+      },
+    });
+  };
   function handleClick() {
-    toggleRead(book.id);
+    toggleBook(book.id);
   }
   return (
     <div>
-      <li className="list-group-item mx-auto col-md-8 mt-4">
-        {book.title} <br /> {book.author}
-        <div className="text-right">
-          <button className="btn btn-outline-info btn-sm" onClick={handleClick}>
-            {book.read ? "Read" : "unread"}
+      <li className="list-group-item col-md-11 mt-4">
+        Book: <strong>{book.title}</strong>
+        <span className="float-right">
+          <button onClick={handleClick} className="btn btn-outline-info btn-sm">
+            {book.read ? "Read" : "Unread"}
           </button>
-        </div>
+        </span>
+        <br />
+        Author: <strong>{book.author}</strong>
       </li>
     </div>
   );
-}
+};
 
 export default Book;

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
+import React, { useEffect, useState } from "react";
+import Book from "./Book";
+import { useDispatch } from "react-redux";
 
-function BookForm({ addBook }) {
+const BookForm = () => {
+  const dispatch = useDispatch();
   const [book, setBook] = useState({
     id: "",
     title: "",
@@ -9,34 +11,32 @@ function BookForm({ addBook }) {
     read: false,
   });
 
-  function handleChange(e) {
-    const value = e.target.value;
-    setBook({
-      ...book,
-      [e.target.name]: value,
+  const handleChange = (e) => {
+    e.persist();
+    setBook((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const addBook = () => {
+    dispatch({
+      type: "CREATE_BOOK",
+      bookData: {
+        title: book.title,
+        author: book.author,
+        read: false,
+      },
     });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (book.title.trim() || book.author.trim()) {
-      addBook({ ...book, id: uuid() });
-      setBook({ ...book, title: "", author: "" });
-    }
-  }
+  };
 
   return (
-    <div className="card card-body mx-auto">
-      <form onSubmit={handleSubmit}>
+    <div className="card card-body">
+      <div className="form">
         <div className="input-group input-group-sm m-1">
           <div className="input-group-prepend">
             <div className="input-group-text">Book</div>
           </div>
           <input
-            type="text"
-            name="title"
-            value={book.title}
-            onChange={handleChange}
+            className="form-control"
+            onChange={(e) => handleChange(e)}
+            name={"title"}
           />
         </div>
 
@@ -45,18 +45,21 @@ function BookForm({ addBook }) {
             <div className="input-group-text">Author</div>
           </div>
           <input
-            type="text"
-            name="author"
-            value={book.author}
-            onChange={handleChange}
+            className="form-control"
+            onChange={(e) => handleChange(e)}
+            name={"author"}
           />
         </div>
-        <button type="submit" className="btn btn-block btn-sm btn-info m-1">
+        <button
+          type="submit"
+          className="btn btn-block btn-sm btn-info m-1"
+          onClick={addBook}
+        >
           Add Book
         </button>
-      </form>
+      </div>
     </div>
   );
-}
+};
 
 export default BookForm;
