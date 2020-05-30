@@ -24,7 +24,7 @@ const BookList = (toggleBook) => {
               id={book.id}
               title={book.title}
               author={book.author}
-              read={toggleBook}
+              read={book.read}
             />
           );
         })}
