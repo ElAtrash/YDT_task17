@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Book from "./Book";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const BookForm = () => {
@@ -9,12 +8,13 @@ const BookForm = () => {
     title: "",
     author: "",
     read: false,
+    imageUrl: "",
   });
-
   const handleChange = (e) => {
     e.persist();
     setBook((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const addBook = () => {
     dispatch({
       type: "CREATE_BOOK",
@@ -22,6 +22,7 @@ const BookForm = () => {
         title: book.title,
         author: book.author,
         read: false,
+        imageUrl: book.imageUrl,
       },
     });
   };
@@ -50,6 +51,18 @@ const BookForm = () => {
             name={"author"}
           />
         </div>
+
+        <div className="input-group input-group-sm m-1">
+          <div className="input-group-prepend">
+            <div className="input-group-text">Link to book image</div>
+          </div>
+          <input
+            className="form-control"
+            onChange={(e) => handleChange(e)}
+            name={"imageUrl"}
+          />
+        </div>
+
         <button
           type="submit"
           className="btn btn-block btn-sm btn-info m-1"

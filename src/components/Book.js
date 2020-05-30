@@ -16,7 +16,14 @@ const Book = (book, toogleBook) => {
   }
   return (
     <div>
-      <li className="list-group-item col-md-11 mt-4">
+      <li className="list-group-item col-md-11 mt-4 border-0">
+        <img
+          src={book.imageUrl}
+          alt=""
+          width="70"
+          height="70"
+          className="rounded float-left mr-1"
+        />
         Book: <strong>{book.title}</strong>
         <span className="float-right">
           <button onClick={handleClick} className="btn btn-outline-info btn-sm">

@@ -17,7 +17,6 @@ const BookList = (toggleBook) => {
       {add && <BookForm />}
       <ul>
         {allBooks.map((book) => {
-          console.log(book);
           return (
             <Book
               key={book.id}
@@ -25,6 +24,7 @@ const BookList = (toggleBook) => {
               title={book.title}
               author={book.author}
               read={book.read}
+              imageUrl={book.imageUrl}
             />
           );
         })}

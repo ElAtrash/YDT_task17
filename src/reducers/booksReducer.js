@@ -6,12 +6,14 @@ const initialState = [
     title: "Harry Potter",
     author: "JKR",
     read: false,
+    imageUrl: "https://picsum.photos/id/209/70",
   },
   {
     id: uuid(),
     title: "The Lord of the Rings",
     author: "JRR Tolkien",
     read: true,
+    imageUrl: "https://picsum.photos/id/1062/70",
   },
 ];
 
@@ -27,6 +29,7 @@ const booksReducer = (state = initialState, action) => {
           title: bookData.title,
           author: bookData.author,
           read: false,
+          imageUrl: bookData.imageUrl,
         },
       ];
     case "TOGGLE_BOOK":
@@ -36,8 +39,6 @@ const booksReducer = (state = initialState, action) => {
     default:
       return state;
   }
-
-  return state;
 };
 
 export default booksReducer;
